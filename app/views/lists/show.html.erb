@@ -1,3 +1,9 @@
 <h1>Show List</h1>
 
 <h1><%= @list.name %></h1>
+<p><% @list.bookmarks.each do |bookmark| %>
+
+   <%= bookmark.id%>
+   <%end%>
+</p>
+<h2><%= link_to "new_bookmark", new_list_bookmark_path(@list) %></h2>

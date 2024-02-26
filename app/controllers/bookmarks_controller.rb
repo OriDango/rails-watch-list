@@ -1,30 +1,28 @@
 class BookmarksController < ApplicationController
 
-  def index
-    @book = Bookmark.all
-  end
-
   def new
-    @book = Bookmark.new
+    @bookmark = Bookmark.new
+    @list = List.find(params[:list_id])
   end
 
   def create
-    @book = Bookmark.new(bookmark_params)
-
-      if @book.save
-        redirect_to book_url(@book), notice: "bookmark was successfully created."
-      else
-        render :new, status: :unprocessable_entity
-      end
+    @bookmark = Bookmark.new(bookmark_params)
+    @list = List.find(params[:list_id])
+    @bookmark.list = List.find(params[:list_id])
+    if @bookmark.save
+      redirect_to list_path(@list)
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def show
-    @book = Bookmark.find(params[:id])
+    @bookmark = Bookmark.find(params[:id])
   end
 
   private
 
-    def restaurant_params
-      params.require(:bookmarks).permit(:title, :movie_id, :list_id)
+    def bookmark_params
+      params.require(:bookmark).permit(:title, :movie_id)
     end
 end
