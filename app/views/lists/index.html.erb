@@ -1,0 +1,10 @@
+<h1>Lists index</h1>
+  <% @list.each do |li| %>
+    <%= li.name %>
+    <p>
+      <%= link_to li do %>
+      <i class="fa-duotone fa-eye"></i>
+      <%end%>
+    </p>
+  <% end %>
+</div>
