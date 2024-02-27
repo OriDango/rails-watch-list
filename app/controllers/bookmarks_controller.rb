@@ -20,9 +20,21 @@ class BookmarksController < ApplicationController
     @bookmark = Bookmark.find(params[:id])
   end
 
+  def destroy
+    @bookmark = Bookmark.find(params[:id])
+    raise
+    @bookmark.destroy
+    redirect_to list_path(@bookmark.list), status: :see_other
+
+    # respond_to do |format|
+    #   format.html { redirect_to lists_path, notice: "" }
+    #   format.json { head :no_content }
+    # end
+  end
+
   private
 
     def bookmark_params
-      params.require(:bookmark).permit(:title, :movie_id)
+      params.require(:bookmark).permit(:movie_id, :comment)
     end
 end

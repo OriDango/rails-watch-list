@@ -1,9 +1,22 @@
 <h1>Show List</h1>
 
 <h1><%= @list.name %></h1>
-<p><% @list.bookmarks.each do |bookmark| %>
+<p><% @list.movies.each do |movie| %>
+  <% bookmark = Bookmark.find_by(list: @list, movie: movie)%>
+   <%= movie.title%>
+   <%= movie.rating%>
+   <%= movie.overview%>
+   <div>
+    <%= bookmark.comment%>
+   <%= link_to "delete", bookmark_path(bookmark), data:{turbo_method: :delete, turbo_confirm: "??" }%>
+   </div>
 
-   <%= bookmark.id%>
+   <%# <%= link_to list_bookmark_path(list_id: @list.id, id: bookmark.id), method: :delete, data: { confirm: 'Are you sure?' } do %>
+   <%# <i class="fa-duotone fa-trash"></i>
+   <% end %>
+   <br>
    <%end%>
 </p>
 <h2><%= link_to "new_bookmark", new_list_bookmark_path(@list) %></h2>
+<br>
+<h2><%= link_to "Back", lists_path %></h2>

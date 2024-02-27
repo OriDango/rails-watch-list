@@ -3,5 +3,5 @@ class Bookmark < ApplicationRecord
   belongs_to :list
 
   validates :movie_id, uniqueness: { scope: :list_id, message: 'error de validacion' }
-  # validates :comment, length: { minimum: 6 }
+  validates :comment, length: { minimum: 6 }
 end
