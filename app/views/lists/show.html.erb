@@ -1,14 +1,46 @@
 <h1>Show List</h1>
+<h2><%= @list.name %></h2>
+
+<% @list.movies.each do |movie| %>
+<% bookmark = Bookmark.find_by(list: @list, movie: movie)%>
+<div class="card-trip">
+  <%= image_tag movie.poster_url %>
+  <div class="card-trip-infos">
+    <div>
+      <h2><%= movie.title%></h2>
+      <p><%= movie.overview%></p>
+    </div>
+    <h2 class="card-trip-pricing">Rating <%= movie.rating%> <i class="fa-duotone fa-star"></i></h2>
+  </div>
+  <div class="card-trip-infos">
+    <h4><%= bookmark.comment%></h4>
+    <button class="btn-ghost"><%= link_to "delete", bookmark_path(bookmark), data:{turbo_method: :delete, turbo_confirm: "??" }%></button>
+   </div>
+</div>
+
+   <%end%>
+</p>
+<h2><%= link_to "new_bookmark", new_list_bookmark_path(@list) %></h2>
+<br>
+<h2><%= link_to "Back", lists_path %></h2>
+
+
+
+
+
+
+
 
 <h1><%= @list.name %></h1>
 <p><% @list.movies.each do |movie| %>
   <% bookmark = Bookmark.find_by(list: @list, movie: movie)%>
    <%= movie.title%>
    <%= movie.rating%>
+   <%= image_tag movie.poster_url %>
    <%= movie.overview%>
    <div>
     <%= bookmark.comment%>
-   <%= link_to "delete", bookmark_path(bookmark), data:{turbo_method: :delete, turbo_confirm: "??" }%>
+    <%= link_to "delete", bookmark_path(bookmark), data:{turbo_method: :delete, turbo_confirm: "??" }%>
    </div>
 
    <%# <%= link_to list_bookmark_path(list_id: @list.id, id: bookmark.id), method: :delete, data: { confirm: 'Are you sure?' } do %>
